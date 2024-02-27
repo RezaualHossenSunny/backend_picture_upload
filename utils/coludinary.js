@@ -1,6 +1,6 @@
 // import  cloudinary  from "cloudinary";
 const cloudinary = require("cloudinary")
-
+const fs = require('fs');
 cloudinary.config({
   cloud_name: "dmtgfgwp1",
   api_key: "667599998919327",
@@ -9,8 +9,11 @@ cloudinary.config({
 
 const uploadClodinary = async (localPath) => {
   try {
-    await cloudinary.uploader.upload(localPath);
+   const produactimg= await cloudinary.uploader.upload(localPath);
+   fs.unlinkSync(localPath)
+    return produactimg
   } catch (error) {
+    fs.unlinkSync(localPath)
     console.log(error);
   }
 };
